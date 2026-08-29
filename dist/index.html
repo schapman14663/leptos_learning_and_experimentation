@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head><link rel="modulepreload" href="/leptop-tutorial-43fe148f20940081.js" crossorigin="anonymous" integrity="sha384-rU2M8C2SW1d2/eBwQr6yGjOrdKoGsXQjhPG2JYbPnjsDkLTEUnpU33EZLt/3EQdd"><link rel="preload" href="/leptop-tutorial-43fe148f20940081_bg.wasm" crossorigin="anonymous" integrity="sha384-TGZgIJDiGl7T3WDmvCq/tE447cFYl41MLcvnhwQtXhxf6JDgPR60aflsS6W1AvYS" as="fetch" type="application/wasm"></head>
+<head><link rel="modulepreload" href="/leptop-tutorial-59713475cc11e9b0.js" crossorigin="anonymous" integrity="sha384-P9xQT7dmGH6H24HQ9chozWUpzZvGrB3GFRoH1mqJ4I017aAgwxWGthHHkqbGoOxX"><link rel="preload" href="/leptop-tutorial-59713475cc11e9b0_bg.wasm" crossorigin="anonymous" integrity="sha384-ZRMiO/N1/kV1gD31en3dZtEC04h7cGhv4drL13A3W4lspj5Soqem1UmndIfkBE2I" as="fetch" type="application/wasm"></head>
 <body>
 <script type="module">
-import init, * as bindings from '/leptop-tutorial-43fe148f20940081.js';
-const wasm = await init({ module_or_path: '/leptop-tutorial-43fe148f20940081_bg.wasm' });
+import init, * as bindings from '/leptop-tutorial-59713475cc11e9b0.js';
+const wasm = await init({ module_or_path: '/leptop-tutorial-59713475cc11e9b0_bg.wasm' });
 
 
 window.wasmBindings = bindings;
@@ -143,3 +143,13 @@ dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
 })()
 </script></body>
 </html>
+
+<style>
+  .red {
+  color: red;
+  },
+
+  body {
+  background-color: rgb(0, 0, 0)
+}
+</style>
