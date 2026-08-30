@@ -50,8 +50,39 @@ fn App() -> impl IntoView {
         "Double Count:"
         {double_count}
         </p>
+        <br/>
         // Okay, lets try and emulate the buttons for PL8M8
-
+        <button
+            on:click=move |_| { *set_count.write() += 1 }
+            style="position: left; width: 200px; height: 30px"
+        >
+        "Round Up"
+        </button>
+        <button
+            on:click=move |_| { *set_count.write() += 1 }
+            style="width: 200px; height: 30px"
+        >
+        "Round Down"
+        </button>
+        <button
+            on:click=move |_| { *set_count.write() += 1 }
+            style="position: right; width: 200px; height: 30px"
+        >
+        "Smart Round"
+        </button>
+        <br/>
+        <button
+            on:click=move |_| { *set_count.write() -= 10 }
+            style="position: left; width: 300px; height: 30px"
+        >
+        "Metric"
+        </button>
+        <button
+            on:click=move |_| { *set_count.write() -= 10 }
+            style="position: right; width: 300px; height: 30px"
+        >
+        "Imperial"
+        </button>
     }
 }
 
