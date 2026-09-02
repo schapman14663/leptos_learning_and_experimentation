@@ -30,6 +30,7 @@ fn App() -> impl IntoView {
         })
         .collect_view();
     // TODO: Possible use case for the available plates Vector for PL8M8
+    let (name, set_name) = signal("Controlled".to_string());
 
     view! {
         // Define Event Listener With on
@@ -83,6 +84,14 @@ fn App() -> impl IntoView {
         </ul>
 
         <ul>{counter_buttons}</ul>
+
+        <input type="text"
+            on:input:target=move |ev| {
+                set_name.set(ev.target().value());
+            }
+            prop:value=name
+        />
+        <p>"Name is: " {name}</p>
 
         // Okay, lets try and emulate the buttons for PL8M8
         <button
