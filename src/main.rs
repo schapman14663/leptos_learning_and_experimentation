@@ -1,9 +1,16 @@
-use leptos::{html::Progress, prelude::*};
+use leptos::{
+    ev::SubmitEvent,
+    html::{self, button},
+    prelude::*,
+};
 
 fn main() {
     console_error_panic_hook::set_once();
     mount_to_body(App);
     mount_to_body(Inputs);
+    mount_to_body(Uncontrolled);
+    mount_to_body(Select);
+    mount_to_body(Enums);
 }
 
 // Marks a function as a re-usable component
@@ -193,6 +200,67 @@ fn Inputs() -> impl IntoView {
 }
 
 #[component]
+fn Uncontrolled() -> impl IntoView {
+    let (name, set_name) = signal("Uncontrolled".to_string());
+    let input_element: NodeRef<html::Input> = NodeRef::new();
+
+    let on_submit = move |ev: SubmitEvent| {
+        // stop page from reloading
+        ev.prevent_default();
+
+        //extract value from input
+        let value = input_element
+            .get()
+            //event handlers only fire after the view is mounted to the DOM so 'NodeRef' must be
+            //'Some' type
+            .expect("<input> should be mounted")
+            //leptos::HtmlElement<html::Input> implements 'Deref'
+            //to a 'web_sys::HtmlInputElement' so we can call
+            //'HtmlInputElement::value()' to get the current value of the input
+            .value();
+        set_name.set(value);
+    };
+
+    view! {
+        <form on:submit=on_submit>
+            <input type="text"
+                value=name
+                node_ref=input_element
+            />
+            <input type="submit" value="Submit"/>
+        </form>
+        <p>"Name is: " {name}</p>
+    }
+}
+
+#[component]
+fn Select() -> impl IntoView {
+    let (value, set_value) = signal(0i32);
+    view! {
+        <select
+            on:change:target=move |ev| {
+            set_value.set(ev.target().value().parse().unwrap());
+            }
+            prop:value=move || value.get().to_string()
+        >
+            <option value="0">"0"</option>
+            <option value="1">"1"</option>
+            <option value="2">"2"</option>
+        </select>
+        // a button that will cycle through the options
+        <button on:click=move |_| set_value.update(|n| {
+            if *n == 2 {
+            *n = 0;
+            } else {
+            *n += 1;
+            }
+        })>
+            "Next Option"
+        </button>
+    }
+}
+
+#[component]
 fn ProgressBar(
     //#[prop(optional)]
     #[prop(default = 100)] max: u16,
@@ -205,5 +273,21 @@ fn ProgressBar(
             // are interchangeable.
             value=progress
         />
+    }
+}
+
+#[component]
+fn Enums() -> impl IntoView {
+    enum TestKind {
+        TestKind1,
+        TestKind2,
+    }
+
+    let (value, set_value) = signal(0);
+    let mut enum_value = TestKind::TestKind1;
+    view! {
+        <button on:click=move |_| enum_value = TestKind::TestKind2>
+
+        </button>
     }
 }
